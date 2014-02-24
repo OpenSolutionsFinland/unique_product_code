@@ -14,22 +14,20 @@ class product_product(osv.osv):
     def create(self, cr, uid, vals, context=None):
         obj_id = super(product_product, self).create(cr, uid, vals, context=context)
         for val in self.browse(cr,uid,[obj_id]):
-            print 'finding match for product default code ' + str(val.default_code)
+            #print 'finding match for product default code ' + str(val.default_code)
             product_id=self.search(cr,uid,[('default_code','=',val.default_code),('id','!=',val.id)])
             if len(product_id)>0:
-                print 'duplicate found'
+                #print 'duplicate found'
                 raise osv.except_osv(('Warning'),("Please choose different code"))        
-        #self.create_send_note(cr, uid, [obj_id], context=context)
         return obj_id
     
     
     def write(self, cr, uid, ids,vals, context=None):
         obj_id = super(product_product, self).write(cr, uid,ids, vals, context=context)
         for val in self.browse(cr,uid,ids):
-            print 'finding match for product default code ' + str(val.default_code)
+            #print 'finding match for product default code ' + str(val.default_code)
             product_id=self.search(cr,uid,[('default_code','=',val.default_code),('id','!=',val.id)])
             if len(product_id)>0:
-                print 'duplicate found'
+                #print 'duplicate found'
                 raise osv.except_osv(('Warning'),("Please choose different code"))        
-        #self.create_send_note(cr, uid, [obj_id], context=context)
         return obj_id
